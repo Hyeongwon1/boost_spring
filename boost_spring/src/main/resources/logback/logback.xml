@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+<!--             <Pattern>%d-12.12d[%60.60C][%5p]:[%4.4L] - %m%n</Pattern> -->
+            <Pattern>%d{yyyy.MM.dd HH:mm:ss} [%5p] [%50.50C]:[%4.4L] - %msg%n</Pattern>
+        </layout>
+    </appender>
+  	<appender name="console1" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+<!--             <Pattern>%d-12.12d[%60.60C][%5p]:[%4.4L] - %m%n</Pattern> -->
+            <Pattern>%d{yyyy.MM.dd HH:mm:ss} [%5p] [%50.50C]:[%4.4L] - %n%m%n</Pattern>
+        </layout>
+    </appender>
+  
+<!--     <appender name="consoleForLoginInterceptor" class="ch.qos.logback.core.ConsoleAppender"> -->
+<!--         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"> -->
+<!--             <pattern> -->
+
+<!--                 ▷  %-5level %d{HH:mm:ss} %logger[%method:%line] - %msg%n --> 
+<!--               %d %-5level %logger{36} - %msg%n -->
+                
+<!--             </pattern> -->
+<!--         </encoder> -->
+<!--     </appender> -->
+
+<!--     <logger name="co.kr.ucs.spring" level="info"/> -->
+<!--     <root level="info"> -->
+<!--         <appender-ref ref="console"/> -->
+<!--     </root> -->
+<!-- 		<logger name="co.kr.ucs.spring" level="info"> -->
+<!--         	<appender-ref ref="console"/> -->
+<!--         </logger> -->
+
+<!--     <logger name="jdbc.sqlonly" level="debug"/> -->
+<!-- 	    <root level="debug"> -->
+<!-- 	        <appender-ref ref="console"/> -->
+<!-- 	    </root> -->
+	<!-- Application Loggers -->
+<!-- 		<logger name="co.kr.ucs.spring"> -->
+<!-- 			<level value="debug" /> -->
+<!-- 			<appender-ref ref="console1"/> -->
+<!-- 		</logger> -->
+		<logger name="org.springframework.core">
+			<level value="info" />
+		</logger>	
+		
+		<logger name="org.springframework.beans">
+			<level value="info" />
+		</logger>
+		
+		<logger name="org.springframework.context">
+			<level value="info" />
+		</logger>
+	
+		<logger name="org.springframework.web">
+			<level value="info" />
+		</logger>
+	
+
+		<logger name="jdbc.sqltiming" level="info"/>
+<!-- 	        <appender-ref ref="console"/> -->
+		<logger name="jdbc.resultset" level="off" />
+		<logger name="jdbc.sqlonly" level="off" />
+		<logger name="jdbc.audit" level="off" />
+		<logger name="jdbc.resultsettable" level="off" />
+		<logger name="jdbc.connection" level="off" />
+	    
+		<!-- Root Logger -->
+	    <root level="debug">
+	        <appender-ref ref="console"/>
+	    </root>
+</configuration>

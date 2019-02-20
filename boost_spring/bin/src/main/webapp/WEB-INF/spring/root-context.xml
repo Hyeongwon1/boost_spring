@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<context:component-scan base-package="co.kr.ucs.spring" />
+
+	<!-- 트랜잭션 --> 
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 오라클 프로퍼티 -->
+
+	<bean id="propertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:config/adb.properties</value>
+		</property>
+	</bean>
+
+	<!--1. pom.xml commons-dbcp.jar -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${oracle.driverClass}" />
+		<property name="url" value="${oracle.url}" />
+		<property name="username" value="${oracle.username}" />
+		<property name="password" value="${oracle.password}" />
+	</bean>
+
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:config/*_sql.xml" />
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	
+	<aop:aspectj-autoproxy />
+
+    <bean id="LoggingAspect" class="co.kr.ucs.spring.aop.LoggingAspect" />
+
+	<aop:config>
+		<aop:aspect id="performanceAspect" ref="performanceAdvice">
+			<aop:around pointcut="execution(public * co.kr.ucs.spring.service..*(..)))" method="trace" />
+		</aop:aspect>
+	</aop:config>
+	
+	<bean id="performanceAdvice" class="co.kr.ucs.spring.aop.PerformanceAdvice" />
+
+</beans>

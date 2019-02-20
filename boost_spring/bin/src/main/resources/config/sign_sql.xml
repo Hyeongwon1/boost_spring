@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sign">
+	 <select id="signUpAction" parameterType="co.kr.ucs.spring.vo.UserVO">
+	    INSERT INTO
+	     CM_USER
+	    (USER_ID
+		,USER_PW
+	    ,USER_NM
+	    ,EMAIL
+	    )
+	    VALUES
+	    (#{user_id}
+	    ,#{user_pw}
+	    ,#{user_nm}
+	    ,#{email}
+	    )
+	</select>
+	
+	 <select id="signInAction" resultType="co.kr.ucs.spring.vo.UserVO" parameterType="co.kr.ucs.spring.vo.UserVO">
+		
+		SELECT * 
+		FROM CM_USER 
+		WHERE 	USER_ID=#{user_id}
+		AND 	USER_PW=#{user_pw}
+	  
+	</select>
+</mapper>
