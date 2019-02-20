@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="board">
+<mapper namespace="main">
 	 <select id="boardList" resultType="java.util.HashMap" >
 <!-- 	 받는 파라미터타입을 잘 설정을 해주아야함...? 대소문자 구분 하나??? =상관없는듯.. -->
 <!-- 	 parameterType은..  vo 로 하면 순서데로 들어가는듯..?? map으로 받아야 편할듯..?  없어도 상관 없는듯.... -->

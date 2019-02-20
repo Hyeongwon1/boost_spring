@@ -21,7 +21,7 @@ public class MainService {
 //		return boardDao.BoardList(param);
 //	}
 
-	public List<DisplayInfoDTO> displayList(DisplayInfoDTO dspdto) {
+	public List<HashMap<String, Object>> displayList(DisplayInfoDTO dspdto) {
 		// TODO Auto-generated method stub
 		return DisplayInfoDao.DisplayInfoList(dspdto);
 	}

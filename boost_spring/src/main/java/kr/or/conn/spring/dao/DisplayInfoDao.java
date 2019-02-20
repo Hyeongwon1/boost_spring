@@ -52,7 +52,7 @@ public class DisplayInfoDao {
 //		return  sqlSession.selectOne("board.boardRead", seq);
 //	}
 
-	public List<DisplayInfoDTO> DisplayInfoList(DisplayInfoDTO dspdto) {
+	public List<HashMap<String, Object>> DisplayInfoList(DisplayInfoDTO dspdto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("main.DisplayInfoList",dspdto);
 	}

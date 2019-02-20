@@ -46,7 +46,7 @@ public class MainController {
 	 @RequestMapping("/dspList")
 	 public Model mainhome(HttpSession session, @RequestBody HashMap<String, Object> param, Model model, HttpServletRequest request,DisplayInfoDTO dspdto) {    	
 
-		 List<DisplayInfoDTO> dipList = mainService.displayList(dspdto);
+		 List<HashMap<String, Object>> dipList = mainService.displayList(dspdto);
 		 model.addAttribute("dipList",dipList);
 	    	
 	    return model;
