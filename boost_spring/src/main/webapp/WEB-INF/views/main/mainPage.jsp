@@ -8,7 +8,54 @@
     <title>네이버 예약</title>
     <link href="../resources/css/style.css" rel="stylesheet">
     <script>
+    document.addEventListener("DOMContentLoaded", function() {
+//     	  startSomething();
+    	  console.log("돔 온로드")
+    	  var data = {
+    		  category_id : 1
+    	  }
+    	  ajaxFn('POST','/main/mainList',data);
+    	
+    });
+    
+    
+    function ajaxFn(type,url,data){
+    	console.log(data)
+        xmlHttp = new XMLHttpRequest()
+        xmlHttp.onreadystatechange = mainlist
+//       	xmlHttp.open('POST','/todoo/TodoWrite',true) 
+      	xmlHttp.open(type,url,true) 
+//      formdata일시	xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8")  //POST요청
+     	xmlHttp.setRequestHeader("Content-Type","application/json; charset=UTF-8")  //POST요청
+    	var Jdata = JSON.stringify(data)
+     	xmlHttp.send(Jdata);
+    }
+    function mainlist()
+    {
+        if( xmlHttp.readyState==4){
+            if( xmlHttp.status==200){
+            	responseObject = JSON.parse(xmlHttp.responseText)
+            	var mainList = responseObject.mainList
+            	console.log(mainList)
+            	var html = document.querySelector("#itemList").innerHTML;
+            	console.log(html)
+            	var resultHTML = "";
+            	
+            	for(var i=0; i<mainList.length; i++) {
+            	    resultHTML += html.replace("{id}", mainList[i].id)
+            	                      .replace("{description}", mainList[i].description)
+            	                      .replace("{description}", mainList[i].description)
+            	                      .replace("{savefilename}", mainList[i].save_file_name)
+            	                      .replace("{content}", mainList[i].content)
+            	                      .replace("{placeName}", mainList[i].place_name);
+            	}
+            	console.log(resultHTML)
+            	document.querySelector(".lst_event_box").innerHTML = resultHTML;
 
+            }
+        }
+    }
+     
     </script>
 </head>
 <body>
@@ -86,7 +133,9 @@
                     <ul class="lst_event_box">
                         <li class="item">
                             <a href="detail.html" class="item_book">
-                                <div class="item_preview"> <img alt="뮤지컬 드림걸즈(DREAMGIRLS) 최초 내한" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170303_271/1488514705030TuUK4_JPEG/17%B5%E5%B8%B2%B0%C9%C1%EE_%B8%DE%C0%CE%C6%F7%BD%BA%C5%CD_%C3%D6%C1%BE.jpg?type=l591_945">                                    <span class="img_border"></span> </div>
+                                <div class="item_preview"> 
+                                <img alt="뮤지컬 드림걸즈(DREAMGIRLS) 최초 내한" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170303_271/1488514705030TuUK4_JPEG/17%B5%E5%B8%B2%B0%C9%C1%EE_%B8%DE%C0%CE%C6%F7%BD%BA%C5%CD_%C3%D6%C1%BE.jpg?type=l591_945">                                    
+                                <span class="img_border"></span> </div>
                                 <div class="event_txt">
                                     <h4 class="event_txt_tit"> <span>뮤지컬 드림걸즈(DREAMGIRLS) 최초 내한</span> <small class="sm">샤롯데 씨어터</small> </h4>
                                     <p class="event_txt_dsc">뮤지컬 드림걸즈(DREAMGIRLS) 최초 내한! 1981년 미국 브로드웨이 초연 당시 전미(全美) 흥행 돌풍 2006년 비욘세, 제이미 폭스, 제니퍼 허드슨 등 초호화 캐스팅 영화로 재탄생 2009년 브로드웨이와 국내 제작진이 힘을 합쳐 세계 최초로 선보인 월드 프리미어 2017년 뮤지컬 드림걸즈 최초 내한 드림걸즈의 진가를 느낄 수 있는 최고의 무대가 온다! 오리지널 소울에 압도
@@ -98,7 +147,8 @@
                         </li>
                         <li class="item">
                             <a href="detail.html" class="item_book">
-                                <div class="item_preview"> <img alt="뮤지컬 더 데빌 The DEVIL" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170111_195/1484112206459rGQGI_JPEG/%BB%F3%BC%BC%C6%E4%C0%CC%C1%F6_%BB%F3%B4%DC%28%B3%D7%C0%CC%B9%F6_%BF%B9%BE%E0%29.jpg?type=l591_945">                                    <span class="img_border"></span> </div>
+                                <div class="item_preview"> <img alt="뮤지컬 더 데빌 The DEVIL" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170111_195/1484112206459rGQGI_JPEG/%BB%F3%BC%BC%C6%E4%C0%CC%C1%F6_%BB%F3%B4%DC%28%B3%D7%C0%CC%B9%F6_%BF%B9%BE%E0%29.jpg?type=l591_945">                                    
+                                <span class="img_border"></span> </div>
                                 <div class="event_txt">
                                     <h4 class="event_txt_tit"> <span>뮤지컬 더 데빌 The DEVIL</span> <small class="sm">드림아트센터 1관 에스비타운</small> </h4>
                                     <p class="event_txt_dsc">더욱 간결해진 이야기 구조와 선명한 주제로 변화 시도 2014 공연계를 뒤흔든 문제적 창작 뮤지컬의 귀환! 시대와 국경을 초월하는 ‘유혹’과 ‘선택’에 관한 이야기 괴테의 [파우스트]를 모티브로 2014년 초연 개막 직후 공연계 최대의 화두로 떠올랐던 뮤지컬 &lt;더데빌&gt; 보다 친절하게 혹은 명확하게 관객들에게 다가가기 위해 작품의 개성은 유지하되 일부 장면 수정, 삭제 선과
@@ -114,7 +164,8 @@
                     <ul class="lst_event_box">
                         <li class="item">
                             <a href="detail.html" class="item_book">
-                                <div class="item_preview"> <img alt="뮤지컬 로미오와 줄리엣" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170119_135/1484789767866RPO6o_JPEG/%B7%CE%B9%CC%BF%C0%C1%D9%B8%AE%BF%A7_1242.jpg?type=l591_945"> <span class="img_border"></span> </div>
+                                <div class="item_preview"> <img alt="뮤지컬 로미오와 줄리엣" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170119_135/1484789767866RPO6o_JPEG/%B7%CE%B9%CC%BF%C0%C1%D9%B8%AE%BF%A7_1242.jpg?type=l591_945"> 
+                                <span class="img_border"></span> </div>
                                 <div class="event_txt">
                                     <h4 class="event_txt_tit"> <span>뮤지컬 로미오와 줄리엣</span> <small class="sm">종로구 두산아트센터 연강홀</small> </h4>
                                     <p class="event_txt_dsc">웰메이드 창작 뮤지컬의 대표 브랜드 '김수로 프로젝트' 최신작!</p>
@@ -123,7 +174,8 @@
                         </li>
                         <li class="item">
                             <a href="detail.html" class="item_book">
-                                <div class="item_preview"> <img alt="뮤지컬 인 더 하이츠(IN THE HEIGHTS)" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170111_225/1484116579024rNkXW_JPEG/2016_%B9%C2%C1%F6%C4%C3_%C0%CE_%B4%F5_%C7%CF%C0%CC%C3%F7_%C6%F7%BD%BA%C5%CD%2820MB%29.jpg?type=l591_945">                                    <span class="img_border"></span> </div>
+                                <div class="item_preview"> <img alt="뮤지컬 인 더 하이츠(IN THE HEIGHTS)" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170111_225/1484116579024rNkXW_JPEG/2016_%B9%C2%C1%F6%C4%C3_%C0%CE_%B4%F5_%C7%CF%C0%CC%C3%F7_%C6%F7%BD%BA%C5%CD%2820MB%29.jpg?type=l591_945">                                    
+                                <span class="img_border"></span> </div>
                                 <div class="event_txt">
                                     <h4 class="event_txt_tit"> <span>뮤지컬 인 더 하이츠(IN THE HEIGHTS)</span> <small class="sm">예술의전당 CJ토월극장</small> </h4>
                                     <p class="event_txt_dsc">제62회 토니상 어워즈 4개 부문 수상! (최우수뮤지컬상, 작곡∙작사상, 안무상, 오케스트라상) 제51회 그래미 어워즈 최우수 뮤지컬 앨범상 수상! VOLUME UP! 랩, 힙합, 스트릿댄스! 눈을 뗄 수 없는 강렬한 퍼포먼스! 새롭고 흥겨운 다이내믹한 무대를 관객들에게 전하여, 20 - 30대뿐만 아니라 40, 50, 60대 이상 모든 연령층이 함께 즐기는 공연! 뉴욕의 라틴 할렘이라
@@ -165,14 +217,14 @@
 
     <script type="rv-template" id="itemList">
         <li class="item">
-            <a href="detail.html?id=${id}" class="item_book">
+            <a href="detail.jsp?id={id}" class="item_book">
                 <div class="item_preview">
-                    <img alt="${description}" class="img_thumb" src="http://211.249.62.123/productImages/${id}?type=th">
+                    <img alt="{description}" class="img_thumb" src="{savefilename}">
                     <span class="img_border"></span>
                 </div>
                 <div class="event_txt">
-                    <h4 class="event_txt_tit"> <span>${description}</span> <small class="sm">${placeName}</small> </h4>
-                    <p class="event_txt_dsc">${content}</p>
+                    <h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
+                    <p class="event_txt_dsc">{content}</p>
                 </div>
             </a>
         </li>

@@ -43,13 +43,18 @@ public class MainController {
 		return "main/mainPage";
 	}
 	
-	 @RequestMapping("/dspList")
-	 public Model mainhome(HttpSession session, @RequestBody HashMap<String, Object> param, Model model, HttpServletRequest request,DisplayInfoDTO dspdto) {    	
+//	@RequestMapping(value ="/mainList" , method = RequestMethod.POST)
+	@RequestMapping("/mainList")
+	@ResponseBody
+	public HashMap<String, Object> mainhome(HttpSession session, @RequestBody HashMap<String, Object> param, Model model, HttpServletRequest request, ProductDTO prddto) {    	
 
-		 List<HashMap<String, Object>> dipList = mainService.displayList(dspdto);
-		 model.addAttribute("dipList",dipList);
-	    	
-	    return model;
+		 prddto.setCategory_id((int)param.get("category_id"));
+		 List<HashMap<String, Object>> mainList = mainService.mainList(prddto);
+	    
+		 HashMap<String, Object> map = new HashMap<String, Object>();
+		 map.put("mainList", mainList);
+		 
+	    return map;
 	 }
 	
 //	@RequestMapping(value = "/board/boardListf.do", method = RequestMethod.GET)

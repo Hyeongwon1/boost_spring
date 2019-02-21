@@ -10,7 +10,7 @@ import kr.or.conn.spring.dto.DisplayInfoDTO;
 import kr.or.conn.spring.dto.ProductDTO;
 
 @Repository
-public class DisplayInfoDao {
+public class MainDao {
 	
 	@Autowired
 	SqlSession sqlSession;
@@ -52,9 +52,9 @@ public class DisplayInfoDao {
 //		return  sqlSession.selectOne("board.boardRead", seq);
 //	}
 
-	public List<HashMap<String, Object>> DisplayInfoList(DisplayInfoDTO dspdto) {
+	public List<HashMap<String, Object>> MainList(ProductDTO prddto) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("main.DisplayInfoList",dspdto);
+		return sqlSession.selectList("main.MainList",prddto);
 	}
 	
 //

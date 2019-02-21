@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.or.conn.spring.dao.DisplayInfoDao;
+import kr.or.conn.spring.dao.MainDao;
 import kr.or.conn.spring.dto.ProductDTO;
 import kr.or.conn.spring.dto.DisplayInfoDTO;
 
@@ -13,7 +13,7 @@ import kr.or.conn.spring.dto.DisplayInfoDTO;
 public class MainService {
 	
 	@Autowired
-	DisplayInfoDao DisplayInfoDao;
+	MainDao MainDao;
 
 
 //	public List<HashMap<String, Object>> BoardList(HashMap<String, Object> param){
@@ -21,9 +21,11 @@ public class MainService {
 //		return boardDao.BoardList(param);
 //	}
 
-	public List<HashMap<String, Object>> displayList(DisplayInfoDTO dspdto) {
+	public List<HashMap<String, Object>> mainList(ProductDTO prdto) {
 		// TODO Auto-generated method stub
-		return DisplayInfoDao.DisplayInfoList(dspdto);
+		
+		
+		return MainDao.MainList(prdto);
 	}
 
 //	public int getTotalRows(HashMap<String, Object> param) {
