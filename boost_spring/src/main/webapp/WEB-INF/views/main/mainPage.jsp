@@ -15,6 +15,11 @@
     		  category_id : 1
     	  }
     	  ajaxFn('POST','/main/mainList',data);
+    	  
+    	  document.getElementById("more").onclick = function()
+    	    {
+    		  	addlist();
+    	    }
     	
     });
     
@@ -35,13 +40,12 @@
         if( xmlHttp.readyState==4){
             if( xmlHttp.status==200){
             	responseObject = JSON.parse(xmlHttp.responseText)
-            	var mainList = responseObject.mainList
-            	console.log(mainList)
+            	mainList = responseObject.mainList
+//             	console.log(mainList)
             	var html = document.querySelector("#itemList").innerHTML;
-            	console.log(html)
             	var resultHTML = "";
             	
-            	for(var i=0; i<mainList.length; i++) {
+            	for(var i=0; i<4; i++) {
             	    resultHTML += html.replace("{id}", mainList[i].id)
             	                      .replace("{description}", mainList[i].description)
             	                      .replace("{description}", mainList[i].description)
@@ -49,12 +53,23 @@
             	                      .replace("{content}", mainList[i].content)
             	                      .replace("{placeName}", mainList[i].place_name);
             	}
-            	console.log(resultHTML)
-            	document.querySelector(".lst_event_box").innerHTML = resultHTML;
+//             	document.querySelector(".lst_event_box").innerHTML += resultHTML;
+            	var dd = document.getElementsByClassName("lst_event_box")[0]
+            	var cc = document.getElementsByClassName("lst_event_box")[1]
+            	console.log(dd)
+            	console.log(cc)
+            	dd.innerHTML += resultHTML;
+            	cc.innerHTML += resultHTML;
+//             	document.getelementsbyclassname(".lst_event_box")[1].innerHTML += resultHTML;
 
             }
         }
     }
+    function addlist(){
+	   
+	   
+   }
+    
      
     </script>
 </head>
@@ -186,7 +201,7 @@
                     </ul>
                     <!-- 더보기 -->
                     <div class="more">
-                        <button class="btn"><span>더보기</span></button>
+                        <button class="btn" id="more"><span>더보기</span></button>
                     </div>
                 </div>
             </div>
@@ -217,7 +232,7 @@
 
     <script type="rv-template" id="itemList">
         <li class="item">
-            <a href="detail.jsp?id={id}" class="item_book">
+            <a href="/detail.jsp?id={id}" class="item_book">
                 <div class="item_preview">
                     <img alt="{description}" class="img_thumb" src="{savefilename}">
                     <span class="img_border"></span>
