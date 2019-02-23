@@ -11,7 +11,7 @@
    	var mainList		= 0; //리스트 전역으로쓰기
     var mainCount		= 0; //가능한 행사 몇개 보이기
     var moreCount		= 0; //더보기
-	var categoryId	= 0; //탭 ui    		  
+	var categoryId		= 0; //탭 ui    		  
     document.addEventListener("DOMContentLoaded", function() {
 //     	  startSomething();
     	  console.log("돔 온로드")
@@ -27,6 +27,10 @@
 //     		  console.log(evt)
 //     		  console.log(evt.target.id)
     		  data.category_id = parseInt(evt.target.id)
+    		  
+    		  anchorChange(evt.target.id)
+    		
+    		  
     		  mainList = 0; 
     		  mainCount = 0;
     		  moreCount = 0; 
@@ -61,21 +65,16 @@
     {
         if( xmlHttp.readyState==4){
             if( xmlHttp.status==200){
-            	var counthtml = document.querySelector(".event_lst_txt").innerHTML;
             	responseObject = JSON.parse(xmlHttp.responseText)
             	mainList = responseObject.mainList
             	mainCount = mainList.length
             	
-            	console.log(`메인카운트  ${mainCount}`)
-            	console.log(mainCount)
+//             	console.log(mainCount)
             	
-//             	var recount = counthtml.replace("{mainCount}", mainCount);
-             	var recount = `<p class="event_lst_txt">바로 예매 가능한 행사가 
-				                <span class="pink">${mainCount}개</span>있습니다
-				                </p>`
-            	console.log(recount);
-            	
-            	counthtml.innerHTML = recount
+            	var counthtml = document.querySelector("#listCount").innerHTML;
+            	var recount = counthtml.replace("{mainCount}", mainCount);
+//             	console.log(recount);
+            	document.querySelector(".event_lst_txt").innerHTML = recount
             	addlist(0)
             }
         }
@@ -129,6 +128,21 @@
 		}
     	
    }
+    
+    function anchorChange(num){
+    	 var anchList = document.getElementsByClassName("anchor");
+    	 console.log(anchList.length)
+    	 for (var i = 0; i < anchList.length; i++) {
+			if (i == num) {
+    	 		var anchor = document.getElementsByClassName("anchor")[i];
+    		 	anchor.className ='anchor active';
+			}else{
+				var anchor = document.getElementsByClassName("anchor")[i];
+	    		anchor.className ='anchor';
+			}
+		 }
+		 console.log(anchor)
+    }
     
      
     </script>
@@ -202,8 +216,7 @@
                 </ul>
             </div>
             <div class="section_event_lst">
-                <p class="event_lst_txt">바로 예매 가능한 행사가 
-                <span class="pink">{mainCount}개</span>있습니다
+                <p class="event_lst_txt">
                 </p>
                 <div class="wrap_event_box">
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
@@ -255,6 +268,9 @@
                 </div>
             </a>
         </li>
+    </script>
+    <script type="rv-template" id="listCount">
+               바로 예매 가능한 행사가 <span class="pink">{mainCount}개</span>있습니다
     </script>
 </body>
 
