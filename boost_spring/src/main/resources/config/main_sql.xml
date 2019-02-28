@@ -5,7 +5,7 @@
 <mapper namespace="main">
 	<select id="MainList" resultType="java.util.HashMap" >
  
- 	/* qeury_id :MainList, COMMENT : */
+ 	/* qeury_id :main.mainList, COMMENT : */
 		SELECT  
 			 pd.id	
 			,pd.category_id
@@ -43,7 +43,38 @@
 		</if>
 	</select>
 
+	<select id="PromoList" resultType="java.util.HashMap" >
+	/* qeury_id :main.PromoList, COMMENT : */
+		select  pm.id
+			,pm.product_id
+			,pdi.id
+			,pdi.product_id
+			,pdi.file_id
+			,fi.id
+			,fi.file_name
+			,fi.save_file_name
+			,fi.content_type
+			
+			from product pd
+			
+			inner
+			join promotion pm
+			on pd.id=pm.id
+			
+			inner
+			join product_image pdi
+			on  pdi.product_id = pm.product_id
+			and pdi.type='th'
+			
+			inner
+			join file_info fi
+			on pdi.file_id = fi.id
+	</select>
+
 	 <select id="boardList" resultType="java.util.HashMap" >
+
+
+
 <!-- 	 받는 파라미터타입을 잘 설정을 해주아야함...? 대소문자 구분 하나??? =상관없는듯.. -->
 <!-- 	 parameterType은..  vo 로 하면 순서데로 들어가는듯..?? map으로 받아야 편할듯..?  없어도 상관 없는듯.... -->
 

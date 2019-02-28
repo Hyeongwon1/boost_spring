@@ -38,7 +38,7 @@ public class MainController {
 	 */
 	
 	@RequestMapping("/home")
-	public String boardhome(Locale locale, Model model) throws Exception{
+	public String mainhome(Locale locale, Model model) throws Exception{
 		
 		return "main/mainPage";
 	}
@@ -46,17 +46,39 @@ public class MainController {
 //	@RequestMapping(value ="/mainList" , method = RequestMethod.POST)
 	@RequestMapping("/mainList")
 	@ResponseBody
-	public HashMap<String, Object> mainhome(HttpSession session, @RequestBody HashMap<String, Object> param, Model model, HttpServletRequest request, ProductDTO prddto) {    	
+	public HashMap<String, Object> mainList(HttpSession session, @RequestBody HashMap<String, Object> param, Model model, HttpServletRequest request, ProductDTO prddto) {    	
 
-		 prddto.setCategory_id((int)param.get("category_id"));
+		 if (param.get("category_id").equals("0")) {
+		 }else {
+			 prddto.setCategory_id((int)param.get("category_id"));
+		 }
+		 
 		 List<HashMap<String, Object>> mainList = mainService.mainList(prddto);
 	    
 		 HashMap<String, Object> map = new HashMap<String, Object>();
 		 map.put("mainList", mainList);
 		 
+		 System.out.println("param");
+		 System.out.println(param.get("promo_id"));
+		 if (param.get("promo_id").equals("0")) {
+			 System.out.println("타나");
+			 List<HashMap<String, Object>> promoList = mainService.promoList();
+			 map.put("promoList", promoList);
+		 }
+		 
 	    return map;
 	 }
-	
+	@RequestMapping("/promoList")
+	@ResponseBody
+	public HashMap<String, Object> promoList(HttpSession session, @RequestBody HashMap<String, Object> param, Model model, HttpServletRequest request) {    	
+
+		 List<HashMap<String, Object>> promoList = mainService.promoList();
+	    
+		 HashMap<String, Object> map = new HashMap<String, Object>();
+		 map.put("promoList", promoList);
+		 
+	    return map;
+	 }
 //	@RequestMapping(value = "/board/boardListf.do", method = RequestMethod.GET)
 //	public String boardListfirst(Locale locale, Model model) throws Exception{
 //		

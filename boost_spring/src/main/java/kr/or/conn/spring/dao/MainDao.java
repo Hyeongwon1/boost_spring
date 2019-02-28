@@ -57,6 +57,11 @@ public class MainDao {
 		return sqlSession.selectList("main.MainList",prddto);
 	}
 	
+	public List<HashMap<String, Object>> PromoList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("main.PromoList");
+	}
+	
 //
 //	public int Signchk(String userId, String userPw) throws ClassNotFoundException {
 //		

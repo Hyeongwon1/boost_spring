@@ -28,6 +28,13 @@ public class MainService {
 		return MainDao.MainList(prdto);
 	}
 
+
+	public List<HashMap<String, Object>> promoList() {
+		// TODO Auto-generated method stub
+		
+		return MainDao.PromoList();
+	}
+
 //	public int getTotalRows(HashMap<String, Object> param) {
 //		
 //		return boardDao.getTotalRows(param);

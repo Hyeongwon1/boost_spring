@@ -7,26 +7,36 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
     <link href="../resources/css/style.css" rel="stylesheet">
+    <style>
+    .event .section_visual .group_visual .container_visual .visual_img .item {
+    width: 415px;
+	}
+    
+    </style>
     <script>
    	var mainList		= 0; //리스트 전역으로쓰기
     var mainCount		= 0; //가능한 행사 몇개 보이기
     var moreCount		= 0; //더보기
-	var categoryId	= 0; //탭 ui    		  
+	var categoryId		= 0; //탭 ui 
+	var count = 0;
+	var fcount = 0;
     document.addEventListener("DOMContentLoaded", function() {
 //     	  startSomething();
     	  console.log("돔 온로드")
     	  var data = {
-    		  category_id : categoryId
+    		  category_id : categoryId,
+    		  promo_id : "0"
     	  }
     	  
     	  ajaxFn('POST','/main/mainList',data);
     	  
+    	  
     	  //탭UI클릭
     	  var tabui = document.querySelector(".section_event_tab");
     	  tabui.addEventListener("click", function (evt) {
-//     		  console.log(evt)
-//     		  console.log(evt.target.id)
     		  data.category_id = parseInt(evt.target.id)
+    		  data.promo_id = "1"
+    		  anchorChange(evt.target.id)
     		  mainList = 0; 
     		  mainCount = 0;
     		  moreCount = 0; 
@@ -42,7 +52,7 @@
     		  console.log(moreCount)
     		  addlist(moreCount);
     	    }
-    	
+    	  
     });
     
     
@@ -54,29 +64,31 @@
       	xmlHttp.open(type,url,true) 
 //      formdata일시	xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8")  //POST요청
      	xmlHttp.setRequestHeader("Content-Type","application/json; charset=UTF-8")  //POST요청
-    	var Jdata = JSON.stringify(data)
-     	xmlHttp.send(Jdata);
+    	if (data != null) {
+	     	var Jdata = JSON.stringify(data)
+	     	xmlHttp.send(Jdata);
+		}
     }
     function onready()
     {
         if( xmlHttp.readyState==4){
             if( xmlHttp.status==200){
-            	var counthtml = document.querySelector(".event_lst_txt").innerHTML;
             	responseObject = JSON.parse(xmlHttp.responseText)
             	mainList = responseObject.mainList
-            	mainCount = mainList.length
+            	promoList = responseObject.promoList
+//             	console.log(mainList)
+	            	mainCount = mainList.length
+	//             	console.log(mainCount)
+	            	var counthtml = document.querySelector("#listCount").innerHTML;
+	            	var recount = counthtml.replace("{mainCount}", mainCount);
+	//             	console.log(recount);
+	            	document.querySelector(".event_lst_txt").innerHTML = recount
+	            	addlist(0)
+            	if (promoList != null) {
+            		promoSetting(promoList);
+				}
             	
-            	console.log(`메인카운트  ${mainCount}`)
-            	console.log(mainCount)
             	
-//             	var recount = counthtml.replace("{mainCount}", mainCount);
-             	var recount = `<p class="event_lst_txt">바로 예매 가능한 행사가 
-				                <span class="pink">${mainCount}개</span>있습니다
-				                </p>`
-            	console.log(recount);
-            	
-            	counthtml.innerHTML = recount
-            	addlist(0)
             }
         }
     }
@@ -130,7 +142,139 @@
     	
    }
     
-     
+    function anchorChange(num){
+    	 var anchList = document.getElementsByClassName("anchor");
+    	 console.log(anchList.length)
+    	 for (var i = 0; i < anchList.length; i++) {
+			if (i == num) {
+    	 		var anchor = document.getElementsByClassName("anchor")[i];
+    		 	anchor.className ='anchor active';
+			}else{
+				var anchor = document.getElementsByClassName("anchor")[i];
+	    		anchor.className ='anchor';
+			}
+		 }
+		 console.log(anchor)
+    }
+    
+    function promoSetting(data){
+    	var promohtml = document.querySelector("#promotionItem").innerHTML;
+    	var presultHTML = "";
+    	promolen = data.length;
+    	for(var i= 0 ; i< promolen; i++) {
+    		presultHTML += promohtml.replace("{savefilename}", data[i].save_file_name);
+    	}
+    	var promoresult = document.querySelector(".visual_img")
+    	promoresult.innerHTML += presultHTML
+    	
+    	promoChange();
+    }
+    
+//     function promoChange(next){
+    	
+//     	var delay = 3000;
+
+    	
+//     	var totalcount =  parseInt(415*(promolen-1)) ;
+//     	console.log(totalcount)
+//     	console.log(count)
+//     	var promoimg = document.querySelector(".visual_img")
+//     	promoimg.style.right = "0px"
+//     	 if(count >= totalcount){
+//     		 count = 415;
+//     		 promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
+// //     		 setTimeout(promoChange,3000)
+// // 			requestAnimationFrame(promoChange)
+//     	 }else{
+//     	    count = count + 5;
+// //     		promoimg.style.right = Math.min(progress / 10, 200) + 'px'; 
+//     		promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
+//     	 }
+    	
+//         var now = new Date().getTime();
+//         if(next == undefined) next = now + delay;
+//         if(now > next){
+//             console.log(aa);
+//             next = now + delay;
+// 			requestAnimationFrame(function(){promoChange(next)})
+//         }
+    	
+    	
+//     }
+ 
+    
+    function promoChange(){
+    	console.log(promolen)
+    	var totalcount =  parseInt(415*(promolen-1)) ;
+    	console.log(totalcount)
+    	var promoimg = document.querySelector(".visual_img")
+    	promoimg.style.right = "-415px"
+    	 if(count >= totalcount){
+     	     fcount = fcount + 15;
+    		 promoimg.style.right = parseInt(promoimg.style.right) + fcount +"px";
+    		 if (fcount >= 415) {
+ 				fcount= 0;
+ 				setTimeout(aaa,3000)
+ 				
+ 				function aaa(){
+ 					fcount= 0;
+ 					count = 0;
+ 			    	requestAnimationFrame(function(){promoChange()});
+ 				}
+
+ 			}else{
+ 				fcount =0;
+ 				count = 0;
+    		 requestAnimationFrame(promoChange)
+ 			}
+    	 }else{
+//     		count = 415;
+			
+    	    count = count + 15;
+    	    fcount = fcount + 15;
+    		promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
+    		console.log(promoimg.style.right)
+    		console.log(count)
+    		console.log(fcount)
+    		if (fcount >=  415) {
+				
+				fcount= 0;
+				setTimeout(aaa,3000)
+				
+				function aaa(){
+			    	requestAnimationFrame(function(){promoChange()});
+				}
+
+			}else{
+				
+    			requestAnimationFrame(promoChange)
+				
+			}
+    	 }
+//      		setTimeout(promoChange,3000)
+    } 
+    
+    
+/*     function promoChange(){
+    	console.log(promolen)
+    	var totalcount =  parseInt(415*(promolen-1)) ;
+    	console.log(totalcount)
+    	console.log(count)
+    	var promoimg = document.querySelector(".visual_img")
+    	promoimg.style.right = "-415px"
+    	 if(count >= totalcount){
+    		 count = 415;
+    		 promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
+    		 setTimeout(promoChange,3000)
+    	 }else{
+    	    count = count + 415;
+    		promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
+    		setTimeout(promoChange,3000)
+    	 }
+//      		setTimeout(promoChange,3000)
+    } */
+    
+
     </script>
 </head>
 <body>
@@ -202,8 +346,7 @@
                 </ul>
             </div>
             <div class="section_event_lst">
-                <p class="event_lst_txt">바로 예매 가능한 행사가 
-                <span class="pink">{mainCount}개</span>있습니다
+                <p class="event_lst_txt">
                 </p>
                 <div class="wrap_event_box">
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
@@ -231,8 +374,11 @@
 
 
     <script type="rv-template" id="promotionItem">
-    <li class="item" style="background-image: url(http://211.249.62.123/productImages/${productId}/${productImageId});">
-        <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
+    <li class="item" style="background-image: url({savefilename})">
+        <a href="#"> 
+			<span class="img_btm_border"></span> 
+			<span class="img_right_border"></span> 
+			<span class="img_bg_gra"></span>
             <div class="event_txt">
                 <h4 class="event_txt_tit"></h4>
                 <p class="event_txt_adr"></p>
@@ -255,6 +401,9 @@
                 </div>
             </a>
         </li>
+    </script>
+    <script type="rv-template" id="listCount">
+               바로 예매 가능한 행사가 <span class="pink">{mainCount}개</span>있습니다
     </script>
 </body>
 
