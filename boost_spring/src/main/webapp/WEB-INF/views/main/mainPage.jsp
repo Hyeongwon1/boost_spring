@@ -170,88 +170,41 @@
     	promoChange();
     }
     
-//     function promoChange(next){
-    	
-//     	var delay = 3000;
-
-    	
-//     	var totalcount =  parseInt(415*(promolen-1)) ;
-//     	console.log(totalcount)
-//     	console.log(count)
-//     	var promoimg = document.querySelector(".visual_img")
-//     	promoimg.style.right = "0px"
-//     	 if(count >= totalcount){
-//     		 count = 415;
-//     		 promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
-// //     		 setTimeout(promoChange,3000)
-// // 			requestAnimationFrame(promoChange)
-//     	 }else{
-//     	    count = count + 5;
-// //     		promoimg.style.right = Math.min(progress / 10, 200) + 'px'; 
-//     		promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
-//     	 }
-    	
-//         var now = new Date().getTime();
-//         if(next == undefined) next = now + delay;
-//         if(now > next){
-//             console.log(aa);
-//             next = now + delay;
-// 			requestAnimationFrame(function(){promoChange(next)})
-//         }
-    	
-    	
-//     }
- 
-    
     function promoChange(){
-    	console.log(promolen)
     	var totalcount =  parseInt(415*(promolen-1)) ;
-    	console.log(totalcount)
     	var promoimg = document.querySelector(".visual_img")
-    	promoimg.style.right = "-415px"
+    		promoimg.style.right = "0px"
     	 if(count >= totalcount){
-     	     fcount = fcount + 15;
-    		 promoimg.style.right = parseInt(promoimg.style.right) + fcount +"px";
+     	     count = count + 16.6;
+    		 fcount = fcount + 16.6;
+    		 promoimg.style.right = fcount +"px";
     		 if (fcount >= 415) {
  				fcount= 0;
- 				setTimeout(aaa,3000)
- 				
+ 				count = 0;
+ 				setTimeout(aaa,2000)
  				function aaa(){
- 					fcount= 0;
- 					count = 0;
  			    	requestAnimationFrame(function(){promoChange()});
  				}
-
  			}else{
- 				fcount =0;
- 				count = 0;
-    		 requestAnimationFrame(promoChange)
- 			}
+    			requestAnimationFrame(promoChange)
+			}
     	 }else{
-//     		count = 415;
-			
-    	    count = count + 15;
-    	    fcount = fcount + 15;
+    	    count = count + 16.6;
+    	    fcount = fcount + 16.6;
     		promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
     		console.log(promoimg.style.right)
     		console.log(count)
     		console.log(fcount)
     		if (fcount >=  415) {
-				
 				fcount= 0;
-				setTimeout(aaa,3000)
-				
+				setTimeout(aaa,2000)
 				function aaa(){
 			    	requestAnimationFrame(function(){promoChange()});
 				}
-
 			}else{
-				
     			requestAnimationFrame(promoChange)
-				
 			}
     	 }
-//      		setTimeout(promoChange,3000)
     } 
     
     
