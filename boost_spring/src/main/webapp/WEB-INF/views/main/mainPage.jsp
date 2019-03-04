@@ -9,7 +9,8 @@
     <link href="../resources/css/style.css" rel="stylesheet">
     <style>
     .event .section_visual .group_visual .container_visual .visual_img .item {
-    width: 415px;
+    width: 100%;
+/*     background-size: contain; */
 	}
     
     </style>
@@ -19,40 +20,42 @@
     var moreCount		= 0; //더보기
 	var categoryId		= 0; //탭 ui 
 	var count = 0;
-	var fcount = 0;
+    var data = {
+    	  category_id : categoryId,
+    	  promo_id : "0",
+    	  limit	   : 4,	
+    	  start    : 0
+    }
     document.addEventListener("DOMContentLoaded", function() {
-//     	  startSomething();
     	  console.log("돔 온로드")
-    	  var data = {
-    		  category_id : categoryId,
-    		  promo_id : "0"
-    	  }
-    	  
     	  ajaxFn('POST','/main/mainList',data);
-    	  
     	  
     	  //탭UI클릭
     	  var tabui = document.querySelector(".section_event_tab");
     	  tabui.addEventListener("click", function (evt) {
     		  data.category_id = parseInt(evt.target.id)
+    		  //처음 프로모션 정보 가져오고 다음부터 안가져오기위해 1을 줬음 0일때만 조회하게 설정
     		  data.promo_id = "1"
-    		  anchorChange(evt.target.id)
+    		  //탭 변경시마다 페이징 초기화
+    		  data.start = 0
     		  mainList = 0; 
+     		  //탭 변경시마다 총 개수 밑 더보기 초기화
     		  mainCount = 0;
     		  moreCount = 0; 
+    		  //탭 변경시마다 앵커 위치 변경 설정위한 셋팅값
+    		  anchorChange(evt.target.id)
+    		  
     		  ajaxFn('POST','/main/mainList', data);
           });
-    	  
     	  
     	  //더보기 클릭
     	  document.getElementById("more").onclick = function()
     	    {
-    		  console.log("aaa")
-    		  moreCount += 4;	
-    		  console.log(moreCount)
-    		  addlist(moreCount);
+    		  moreCount += 4;
+    		  //더보기 클릭시마다 limit start+4씩 증가
+    		  data.start = moreCount
+    		  ajaxFn('POST','/main/mainList', data);
     	    }
-    	  
     });
     
     
@@ -76,14 +79,18 @@
             	responseObject = JSON.parse(xmlHttp.responseText)
             	mainList = responseObject.mainList
             	promoList = responseObject.promoList
-//             	console.log(mainList)
-	            	mainCount = mainList.length
-	//             	console.log(mainCount)
+            	mainCount = responseObject.mainCount
+//             		console.log(mainList)
+// 	            	mainCount = mainList.length
+//             		console.log(mainCount)
 	            	var counthtml = document.querySelector("#listCount").innerHTML;
 	            	var recount = counthtml.replace("{mainCount}", mainCount);
-	//             	console.log(recount);
+//             		console.log(recount);
 	            	document.querySelector(".event_lst_txt").innerHTML = recount
-	            	addlist(0)
+	            	//start 값을 전달해 주는이유는 더보기 보이고 안보이고 설정값에 사용하기 위함 
+	            	//4,8 증가해서 총 갯수를 넘었을때 더보기 사라지게 하기 위함
+	            	addlist(data.start)
+	            	
             	if (promoList != null) {
             		promoSetting(promoList);
 				}
@@ -95,41 +102,41 @@
     
     
     function addlist(moreCount){
-		var itemlength = moreCount+4 ;
-    	
     	var html = document.querySelector("#itemList").innerHTML;
     	var resultHTML = "";
     	var resultHTMLA = "";
     	var morebtn = document.getElementById("morebtn");
-    	//더보기 버튼 하이드 및 탭 변경시 itemlength 초기화  하기위함
-    	if ( moreCount+4  >= mainCount) {
-    		itemlength = mainCount;
-    		morebtn.style.visibility="hidden";
-		}else{
-//     		itemlength = mainList.length;
-			morebtn.style.visibility="visible";
-		}
+
+//     	console.log("mainCount"+mainCount)
+//     	console.log("moreCount"+moreCount)
     	
-    	for(var i= moreCount ; i< itemlength ; i++) {
+    	for(var i= 0 ; i< mainList.length ; i++) {
         	if (i % 2 == 0) {
-            	    resultHTML += html.replace("{id}", mainList[i].id)
-            	                      .replace("{description}", mainList[i].description)
-            	                      .replace("{description}", mainList[i].description)
-            	                      .replace("{savefilename}", mainList[i].save_file_name)
-            	                      .replace("{content}", mainList[i].content)
-            	                      .replace("{placeName}", mainList[i].place_name);
+            	    resultHTML += html.replace("{id}"			, mainList[i].id)
+            	                      .replace("{description}"	, mainList[i].description)
+            	                      .replace("{description}"	, mainList[i].description)
+            	                      .replace("{savefilename}"	, mainList[i].save_file_name)
+            	                      .replace("{content}"		, mainList[i].content)
+            	                      .replace("{placeName}"	, mainList[i].place_name);
 				}else{
-            	    resultHTMLA += html.replace("{id}", mainList[i].id)
-				                      .replace("{description}", mainList[i].description)
-				                      .replace("{description}", mainList[i].description)
-				                      .replace("{savefilename}", mainList[i].save_file_name)
-				                      .replace("{content}", mainList[i].content)
-				                      .replace("{placeName}", mainList[i].place_name);						
+            	    resultHTMLA += html.replace("{id}"			, mainList[i].id)
+				                       .replace("{description}"	, mainList[i].description)
+				                       .replace("{description}"	, mainList[i].description)
+				                       .replace("{savefilename}", mainList[i].save_file_name)
+				                       .replace("{content}"		, mainList[i].content)
+				                       .replace("{placeName}"	, mainList[i].place_name);						
 				}
         	}		
 	    	var dd = document.getElementsByClassName("lst_event_box")[0]
 	    	var cc = document.getElementsByClassName("lst_event_box")[1]
-	   
+		
+	    //moreCount는 0,4,8 이렇게 증가하므로 메인카운트를 넘나 확인하려면 mainlist의 수량을 더해야 확실히 확인가능
+	    if ( moreCount+mainList.length  >= mainCount) {
+	    	morebtn.style.visibility="hidden";
+		}else{
+			morebtn.style.visibility="visible";
+		}	    	
+	    	
 	    //탭 변경시 처음 값으로 셋팅위한것.
 	    if (moreCount  == 0) {
 	    	dd.innerHTML = resultHTML;
@@ -160,7 +167,7 @@
     function promoSetting(data){
     	var promohtml = document.querySelector("#promotionItem").innerHTML;
     	var presultHTML = "";
-    	promolen = data.length;
+    	var promolen = data.length;
     	for(var i= 0 ; i< promolen; i++) {
     		presultHTML += promohtml.replace("{savefilename}", data[i].save_file_name);
     	}
@@ -169,111 +176,106 @@
     	
     	promoChange();
     }
-    
-//     function promoChange(next){
-    	
-//     	var delay = 3000;
-
-    	
-//     	var totalcount =  parseInt(415*(promolen-1)) ;
-//     	console.log(totalcount)
-//     	console.log(count)
-//     	var promoimg = document.querySelector(".visual_img")
-//     	promoimg.style.right = "0px"
-//     	 if(count >= totalcount){
-//     		 count = 415;
-//     		 promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
-// //     		 setTimeout(promoChange,3000)
-// // 			requestAnimationFrame(promoChange)
-//     	 }else{
-//     	    count = count + 5;
-// //     		promoimg.style.right = Math.min(progress / 10, 200) + 'px'; 
-//     		promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
-//     	 }
-    	
-//         var now = new Date().getTime();
-//         if(next == undefined) next = now + delay;
-//         if(now > next){
-//             console.log(aa);
-//             next = now + delay;
-// 			requestAnimationFrame(function(){promoChange(next)})
-//         }
-    	
-    	
-//     }
  
-    
     function promoChange(){
-    	console.log(promolen)
-    	var totalcount =  parseInt(415*(promolen-1)) ;
-    	console.log(totalcount)
+    	
     	var promoimg = document.querySelector(".visual_img")
-    	promoimg.style.right = "-415px"
-    	 if(count >= totalcount){
-     	     fcount = fcount + 15;
-    		 promoimg.style.right = parseInt(promoimg.style.right) + fcount +"px";
-    		 if (fcount >= 415) {
- 				fcount= 0;
- 				setTimeout(aaa,3000)
- 				
- 				function aaa(){
- 					fcount= 0;
- 					count = 0;
- 			    	requestAnimationFrame(function(){promoChange()});
- 				}
-
- 			}else{
- 				fcount =0;
- 				count = 0;
-    		 requestAnimationFrame(promoChange)
- 			}
-    	 }else{
-//     		count = 415;
-			
-    	    count = count + 15;
-    	    fcount = fcount + 15;
+    	var promoitem = document.querySelector(".visual_img").children
+    		promoimg.style.right = "0px"
+    		count = count + 18;
     		promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
-    		console.log(promoimg.style.right)
-    		console.log(count)
-    		console.log(fcount)
-    		if (fcount >=  415) {
-				
-				fcount= 0;
+//     		console.log(promoimg.style.right)
+//     		console.log(count)
+    		//픽셀이동 414가 딱 한칸 414 도달하면 지나간 값을 appendChild를 해줬을경우 제일 마지막에붙게된다.
+    		if (count >=  414) {
+//     			console.log(promoimg) 
+//     			console.log(promoimg.lastElementChild) 
+				//픽셀 이동 카운트 초기화 아래서 어팬드 차일드해서  li 값을 뒤에 붙여줄거기 때문에 결론은 414만 움직이면 li순서가 appendChild로인해 첫번째것은 제일 마지막으로 보내지고 한칸씩 당겨지기 떄문에
+				count= 0;
 				setTimeout(aaa,3000)
-				
 				function aaa(){
+					//위에 선언된 ul의 칠드런 값중 제일 첫번째(이미 지나간 li)를 어팬드 해주면 마지막에 붙는다. 그래서 지나간 li들은 마지막에 붙게된다.
+    				promoimg.appendChild(promoitem[0])
 			    	requestAnimationFrame(function(){promoChange()});
 				}
-
+			//픽셀이동 414 까지는 계속 애니메이션 프레임 작동해야하기때문에 else의 경우 	계속 재귀
 			}else{
-				
     			requestAnimationFrame(promoChange)
-				
 			}
-    	 }
-//      		setTimeout(promoChange,3000)
     } 
+    
+//     function promoChange(){
+// //     	console.log(promolen)
+//     	var totalcount =  parseInt(414*(promolen-1)) ;
+// //     	console.log(totalcount)
+//     	var promoimg = document.querySelector(".visual_img")
+//     	promoimg.style.right = "-414px"
+    	
+//     	 if(count >= totalcount){
+//      	     fcount = fcount + 18;
+//     		 promoimg.style.right = parseInt(promoimg.style.right) + fcount +"px";
+//     		 if (fcount >= 414) {
+    			 
+//  				setTimeout(aaa,3000)
+//  				function aaa(){
+//  					fcount= 0;
+//  					count = 0;
+// //     				promoimg.style.right = -totalcount+"px"
+//  			    	requestAnimationFrame(function(){promoChange()});
+//  				}
+
+//  			}else{
+//  				fcount =0;
+//  				count = 0;
+//     		 requestAnimationFrame(promoChange)
+//  			}
+//     	 }else{
+    		 
+//     	    count = count + 18;
+//     	    fcount = fcount + 18;
+//     		promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
+//     		console.log(promoimg.style.right)
+//     		console.log(count)
+//     		console.log(fcount)
+//     		if (fcount >=  414) {
+				
+// 				fcount= 0;
+// 				setTimeout(aaa,3000)
+				
+// 				function aaa(){
+// 			    	requestAnimationFrame(function(){promoChange()});
+// 				}
+
+// 			}else{
+				
+//     			requestAnimationFrame(promoChange)
+				
+// 			}
+//     	 }
+// //      		setTimeout(promoChange,3000)
+//     } 
     
     
 /*     function promoChange(){
     	console.log(promolen)
-    	var totalcount =  parseInt(415*(promolen-1)) ;
+    	var totalcount =  parseInt(414*(promolen-1)) ;
     	console.log(totalcount)
     	console.log(count)
     	var promoimg = document.querySelector(".visual_img")
-    	promoimg.style.right = "-415px"
+    	promoimg.style.right = "-414px"
     	 if(count >= totalcount){
-    		 count = 415;
+    		 count = 414;
     		 promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
     		 setTimeout(promoChange,3000)
     	 }else{
-    	    count = count + 415;
+    	    count = count + 414;
     		promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
     		setTimeout(promoChange,3000)
     	 }
 //      		setTimeout(promoChange,3000)
     } */
     
+
 
     </script>
 </head>
@@ -374,7 +376,7 @@
 
 
     <script type="rv-template" id="promotionItem">
-    <li class="item" style="background-image: url({savefilename})">
+    <li class="item" id="promoitem" style="background-image: url({savefilename})">
         <a href="#"> 
 			<span class="img_btm_border"></span> 
 			<span class="img_right_border"></span> 

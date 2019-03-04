@@ -38,9 +38,39 @@
 		join file_info finfoP 
 		on pdi.file_id= finfoP.id
 		where 1=1
+		<if test="category_id != 0 ">
+		and pd.category_id = #{category_id}
+		</if>
+		ORDER BY id DESC limit #{start}, #{limit};
+
+	</select>
+
+	<select id="MainListCount" resultType="int" >
+ 	/* qeury_id :main.MainListCount, COMMENT : */
+		SELECT IFNULL(COUNT(*), 0)
+			 
+		from product pd
+		left 
+		join display_info dsp
+		on pd.id = dsp.product_id
+		
+		left
+		join display_info_image dspi
+		on dsp.id = dspi.id
+			
+		left
+		join product_image pdi
+		on  pd.id = pdi.product_id
+		and pdi.`type` ='th'
+		
+		left
+		join file_info finfoP 
+		on pdi.file_id= finfoP.id
+		where 1=1
 		<if test="category_id != null and category_id !='' ">
 		and pd.category_id = #{category_id}
 		</if>
+
 	</select>
 
 	<select id="PromoList" resultType="java.util.HashMap" >

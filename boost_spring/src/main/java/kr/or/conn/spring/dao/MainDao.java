@@ -61,6 +61,11 @@ public class MainDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("main.PromoList");
 	}
+
+	public int MainListCount(ProductDTO prddto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("main.MainListCount",prddto);
+	}
 	
 //
 //	public int Signchk(String userId, String userPw) throws ClassNotFoundException {

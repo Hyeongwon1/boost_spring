@@ -35,6 +35,12 @@ public class MainService {
 		return MainDao.PromoList();
 	}
 
+
+	public int mainListCount(ProductDTO prddto) {
+		// TODO Auto-generated method stub
+		return MainDao.MainListCount(prddto);
+	}
+
 //	public int getTotalRows(HashMap<String, Object> param) {
 //		
 //		return boardDao.getTotalRows(param);

@@ -43,25 +43,28 @@ public class MainController {
 		return "main/mainPage";
 	}
 	
-//	@RequestMapping(value ="/mainList" , method = RequestMethod.POST)
 	@RequestMapping("/mainList")
 	@ResponseBody
 	public HashMap<String, Object> mainList(HttpSession session, @RequestBody HashMap<String, Object> param, Model model, HttpServletRequest request, ProductDTO prddto) {    	
 
-		 if (param.get("category_id").equals("0")) {
-		 }else {
-			 prddto.setCategory_id((int)param.get("category_id"));
-		 }
+		 prddto.setStart((int)param.get("start"));
+		 prddto.setLimit((int)param.get("limit"));
+		 
+		 int mainListCount = 0;
+		 
+		 prddto.setCategory_id((int)param.get("category_id"));
 		 
 		 List<HashMap<String, Object>> mainList = mainService.mainList(prddto);
+		 mainListCount = mainService.mainListCount(prddto);
 	    
 		 HashMap<String, Object> map = new HashMap<String, Object>();
 		 map.put("mainList", mainList);
+		 map.put("mainCount", mainListCount);
 		 
-		 System.out.println("param");
-		 System.out.println(param.get("promo_id"));
+//		 System.out.println("param");
+//		 System.out.println(param.get("promo_id"));
 		 if (param.get("promo_id").equals("0")) {
-			 System.out.println("타나");
+//			 System.out.println("타나");
 			 List<HashMap<String, Object>> promoList = mainService.promoList();
 			 map.put("promoList", promoList);
 		 }
