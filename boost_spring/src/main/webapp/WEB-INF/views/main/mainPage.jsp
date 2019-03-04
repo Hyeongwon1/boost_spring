@@ -336,15 +336,6 @@
                     <li class="item" data-category="5">
                         <a class="anchor"> <span id="5">연극</span> </a>
                     </li>
-                    <!-- li class="item" data-category="7">
-                        <a class="anchor"> <span>클래스</span> </a>
-                    </li>
-                    <li class="item" data-category="8">
-                        <a class="anchor"> <span>체험</span> </a>
-                    </li>
-                    <li class="item" data-category="9">
-                        <a class="anchor last"> <span>키즈</span> </a>
-                    </li -->
                 </ul>
             </div>
             <div class="section_event_lst">
@@ -392,7 +383,7 @@
 
     <script type="rv-template" id="itemList">
         <li class="item">
-            <a href="/detail.jsp?id={id}" class="item_book">
+            <a href="/main/detail?id={id}" class="item_book">
                 <div class="item_preview">
                     <img alt="{description}" class="img_thumb" src="{savefilename}">
                     <span class="img_border"></span>

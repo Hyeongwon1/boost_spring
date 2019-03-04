@@ -71,17 +71,19 @@ public class MainController {
 		 
 	    return map;
 	 }
-	@RequestMapping("/promoList")
-	@ResponseBody
-	public HashMap<String, Object> promoList(HttpSession session, @RequestBody HashMap<String, Object> param, Model model, HttpServletRequest request) {    	
+	
+	@RequestMapping("/detail")
+	public String maindetail(Locale locale, Model model) throws Exception{
+		
+		return "main/detail";
+	}
 
-		 List<HashMap<String, Object>> promoList = mainService.promoList();
-	    
-		 HashMap<String, Object> map = new HashMap<String, Object>();
-		 map.put("promoList", promoList);
-		 
-	    return map;
-	 }
+	@RequestMapping("/detailEntry")
+	public HashMap<String, Object> detailEntry(Locale locale, Model model) throws Exception{
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		return map;
+	}
 //	@RequestMapping(value = "/board/boardListf.do", method = RequestMethod.GET)
 //	public String boardListfirst(Locale locale, Model model) throws Exception{
 //		
