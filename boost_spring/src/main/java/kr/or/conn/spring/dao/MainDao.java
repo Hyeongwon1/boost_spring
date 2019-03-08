@@ -66,6 +66,31 @@ public class MainDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("main.MainListCount",prddto);
 	}
+
+	public HashMap<String, Object> DetailEntry(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("main.DetailEntry",param);
+	}
+
+	public List<HashMap<String, Object>> DetailComentList(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("main.DetailComentList",param);
+	}
+
+	public int DetailComentListCount(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("main.DetailComentListCount",param);
+	}
+
+	public float DetailComentScore(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("main.DetailComentScore",param);
+	}
+
+	public HashMap<String, Object> DetailEtcImage(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("main.DetailEtcImage",param);
+	}
 	
 //
 //	public int Signchk(String userId, String userPw) throws ClassNotFoundException {

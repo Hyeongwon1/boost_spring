@@ -79,9 +79,36 @@ public class MainController {
 	}
 
 	@RequestMapping("/detailEntry")
-	public HashMap<String, Object> detailEntry(Locale locale, Model model) throws Exception{
+	@ResponseBody
+	public HashMap<String, Object> detailEntry(HttpSession session, @RequestBody HashMap<String, Object> param, Model model, HttpServletRequest request) throws Exception{
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<HashMap<String, Object>> ComentList = mainService.DetailComentList(param);
+		int ComentListCount = mainService.DetailComentListCount(param);
+		float ComentScore = mainService.DetailComentScore(param);
+		System.out.println("ComentScore");
+		System.out.println(ComentScore);
+		
+		if (param.get("flag").equals("0")) {
+			HashMap<String, Object> detailEntry = mainService.detailEntry(param);
+			HashMap<String, Object> DetailEtcImage = mainService.DetailEtcImage(param);
+			map.put("data", detailEntry);
+			map.put("etcImage", DetailEtcImage);
+		}
+		
+		map.put("ComentCount", ComentListCount);
+		map.put("ComentList", ComentList);
+		map.put("ComentScore", ComentScore);
+		return map;
+	}
+	@RequestMapping("/DetailComentList")
+	@ResponseBody
+	public HashMap<String, Object> DetailComentList(HttpSession session, @RequestBody HashMap<String, Object> param, Model model, HttpServletRequest request) throws Exception{
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<HashMap<String, Object>> ComentList = mainService.DetailComentList(param);
+		
+		map.put("ComentList", ComentList);
 		return map;
 	}
 //	@RequestMapping(value = "/board/boardListf.do", method = RequestMethod.GET)

@@ -41,6 +41,36 @@ public class MainService {
 		return MainDao.MainListCount(prddto);
 	}
 
+
+	public HashMap<String, Object> detailEntry(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		return MainDao.DetailEntry(param);
+	}
+
+
+	public List<HashMap<String, Object>> DetailComentList(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		return MainDao.DetailComentList(param);
+	}
+
+
+	public int DetailComentListCount(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		return MainDao.DetailComentListCount(param);
+	}
+
+
+	public float DetailComentScore(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		return MainDao.DetailComentScore(param);
+	}
+
+
+	public HashMap<String, Object> DetailEtcImage(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		return MainDao.DetailEtcImage(param);
+	}
+
 //	public int getTotalRows(HashMap<String, Object> param) {
 //		
 //		return boardDao.getTotalRows(param);

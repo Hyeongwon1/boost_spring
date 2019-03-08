@@ -4,10 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="main">
 	<select id="MainList" resultType="java.util.HashMap" >
- 
  	/* qeury_id :main.mainList, COMMENT : */
 		SELECT  
-			 pd.id	
+			 dsp.id	
 			,pd.category_id
 			,pd.description
 			,pd.content
@@ -41,7 +40,7 @@
 		<if test="category_id != 0 ">
 		and pd.category_id = #{category_id}
 		</if>
-		ORDER BY id DESC limit #{start}, #{limit};
+		ORDER BY id ASC limit #{start}, #{limit};
 
 	</select>
 
@@ -99,6 +98,186 @@
 			inner
 			join file_info fi
 			on pdi.file_id = fi.id
+	</select>
+
+	<select id="DetailEntry" resultType="java.util.HashMap" >
+	/* qeury_id :main.DetailEntry, COMMENT : */
+		select 
+			pd.id
+			,pd.description
+			,pd.content
+			,pd.`event`
+			,dsp.place_name
+			,dsp.place_lot
+			,dsp.place_street
+			,dsp.tel
+			,dsp.opening_hours
+			,pdi.`type`
+			,max(fi.content_type) as content_type
+			,max(fi.save_file_name) as save_file_name
+			,fidi.save_file_name as map_file
+			
+			from product pd
+			
+			left
+			join display_info dsp
+			on pd.id = dsp.product_id
+			
+			left
+			join display_info_image dspi
+			on dsp.id = dspi.display_info_id
+			
+			left
+			join file_info fidi
+			on dspi.file_id = fidi.id
+
+			left
+			join product_image pdi
+			on pd.id = pdi.product_id
+			and pdi.`type` ='ma'
+			
+			left
+			join file_info fi
+			on pdi.file_id = fi.id
+			
+			where dsp.id = #{id}
+
+			group by id,dsp.id,dspi.id
+	</select>
+
+	<select id="DetailComentList" resultType="java.util.HashMap" >
+	/* qeury_id :main.DetailComentList, COMMENT : */
+		select 
+			pd.id
+			,pd.description
+			,pd.content
+			,pd.`event`
+			,rsi.reservation_name
+			,rsi.reservation_tel
+			,rsi.reservation_email
+			,rsi.reservation_date
+			,date_format(rsi.create_date,'%Y.%m.%d') as create_date
+			,cast(round(rsuc.score,1)as char(3)) as score
+			,rsuc.`comment`
+			,cfi.save_file_name
+			
+			from product pd
+			
+			left
+			join display_info dsp
+			on pd.id = dsp.product_id
+				
+			left 
+			join reservation_info rsi
+			on pd.id = rsi.product_id
+			
+			left
+			join reservation_user_comment rsuc
+			on rsi.id = rsuc.reservation_info_id
+			
+			left
+			join reservation_user_comment_image rsuci
+			on rsuc.id = rsuci.reservation_user_comment_id
+			
+			left
+			join file_info cfi
+			on rsuci.file_id = cfi.id
+		
+			where dsp.id = #{id}
+			and  rsuc.id is not null
+
+			ORDER BY id ASC limit #{start}, #{limit};
+	</select>
+
+	<select id="DetailComentScore" resultType="float" >
+	/* qeury_id :main.DetailComentScore, COMMENT : */
+		select 
+			IFNULL(round(avg(rsuc.score),1), 0) as score
+			
+			from product pd
+			
+			left
+			join display_info dsp
+			on pd.id = dsp.product_id
+				
+			left 
+			join reservation_info rsi
+			on pd.id = rsi.product_id
+			
+			left
+			join reservation_user_comment rsuc
+			on rsi.id = rsuc.reservation_info_id
+			
+			left
+			join reservation_user_comment_image rsuci
+			on rsuc.id = rsuci.reservation_user_comment_id
+			
+			left
+			join file_info cfi
+			on rsuci.file_id = cfi.id
+		
+			where dsp.id = #{id}
+			and  rsuc.id is not null
+
+	</select>
+
+	<select id="DetailComentListCount" resultType="int" >
+	/* qeury_id :main.DetailComentListCount, COMMENT : */
+		select IFNULL(COUNT(*), 0)
+			
+			from product pd
+			
+			left
+			join display_info dsp
+			on pd.id = dsp.product_id
+				
+			left 
+			join reservation_info rsi
+			on pd.id = rsi.product_id
+			
+			left
+			join reservation_user_comment rsuc
+			on rsi.id = rsuc.reservation_info_id
+			
+			left
+			join reservation_user_comment_image rsuci
+			on rsuc.id = rsuci.reservation_user_comment_id
+			
+			left
+			join file_info cfi
+			on rsuci.file_id = cfi.id
+		
+			where dsp.id = #{id}
+			and  rsuc.id is not null
+
+	</select>
+
+	<select id="DetailEtcImage" resultType="java.util.HashMap" >
+	/* qeury_id :main.DetailEtcImage, COMMENT : */
+		select 
+			pd.id
+			,pd.description
+			,fi.save_file_name
+			,dsp.place_name
+			
+			from product pd
+
+			left
+			join display_info dsp
+			on pd.id = dsp.product_id
+
+			left
+			join product_image pdi
+			on pd.id = pdi.product_id
+			and pdi.`type` ='et'
+
+			left
+			join file_info fi
+			on pdi.file_id = fi.id
+
+			where dsp.id = #{id} 
+			
+			limit 1
 	</select>
 
 	 <select id="boardList" resultType="java.util.HashMap" >
