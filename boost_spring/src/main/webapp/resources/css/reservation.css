@@ -8290,13 +8290,13 @@ select {
 .section_confirm .confirm_item_top:before {
     bottom: 0;
     left: 0;
-    background-image: url('../img/bg/bg_confirm_check_bottom_left.png');
+    background-image: url('../img/bg_confirm_check_bottom_left.png');
     background-position: 0 0;
 }
 .section_confirm .confirm_item_top:after {
     bottom: 0;
     right: 0;
-    background-image: url('../img/bg/bg_confirm_check_bottom_right.png');
+    background-image: url('../img/bg_confirm_check_bottom_right.png');
     background-position: 100% 0;
 }
 .section_confirm .confirm_item_top .common_bottom_buttongroup {
@@ -9169,25 +9169,25 @@ select {
     padding-bottom: 0;
 }
 .section_confirm.default .confirm_item_top .item_top_inside_left {
-    background-image: url('../img/bg/bg_confirm_check_left.png');
+    background-image: url('../img/bg_confirm_check_left.png');
 }
 .section_confirm.default .confirm_item_top .item_top_inside_left .item_top_inside_right {
-    background-image: url('../img/bg/bg_confirm_check_right.png');
+    background-image: url('../img/bg_confirm_check_right.png');
 }
 .section_confirm.default .confirm_item_top .item_top_inside_left .item_top_inside_right .confirm_title {
-    background-image: url('../img/bg/bg_confirm_check_center.png');
+    background-image: url('../img/bg_confirm_check_center.png');
 }
 .section_confirm.okay .confirm_item_top .confirm_btn_share {
     display: block;
 }
 .section_confirm.okay .confirm_item_top .item_top_inside_left {
-    background-image: url('../img/bg/bg_confirm_check_green_left.png');
+    background-image: url('../img/bg_confirm_check_green_left.png');
 }
 .section_confirm.okay .confirm_item_top .item_top_inside_left .item_top_inside_right {
-    background-image: url('../img/bg/bg_confirm_check_green_right.png');
+    background-image: url('../img/bg_confirm_check_green_right.png');
 }
 .section_confirm.okay .confirm_item_top .item_top_inside_left .item_top_inside_right .confirm_title {
-    background-image: url('../img/bg/bg_confirm_check_green_center.png');
+    background-image: url('../img/bg_confirm_check_green_center.png');
 }
 .section_confirm.okay .confirm_item_top .item_top_inside_left .item_top_inside_right .confirm_title > span {
     position: relative;
@@ -9203,25 +9203,25 @@ select {
     padding-right: 35px;
 }
 .section_confirm.cancel .confirm_item_top .item_top_inside_left {
-    background-image: url('../img/bg/bg_confirm_check_gray_left.png');
+    background-image: url('../img/bg_confirm_check_gray_left.png');
 }
 .section_confirm.cancel .confirm_item_top .item_top_inside_left .item_top_inside_right {
-    background-image: url('../img/bg/bg_confirm_check_gray_right.png');
+    background-image: url('../img/bg_confirm_check_gray_right.png');
 }
 .section_confirm.cancel .confirm_item_top .item_top_inside_left .item_top_inside_right .confirm_title {
-    background-image: url('../img/bg/bg_confirm_check_gray_center.png');
+    background-image: url('../img/bg_confirm_check_gray_center.png');
 }
 .section_confirm.cancel .confirm_item_top .item_top_inside_left .item_top_inside_right .confirm_title .ico_clock {
     background-position: -297px -131px;
 }
 .section_confirm.used .confirm_item_top .item_top_inside_left {
-    background-image: url('../img/bg/bg_confirm_check_gray_used_left.png');
+    background-image: url('../img/bg_confirm_check_gray_used_left.png');
 }
 .section_confirm.used .confirm_item_top .item_top_inside_left .item_top_inside_right {
-    background-image: url('../img/bg/bg_confirm_check_gray_used_right.png');
+    background-image: url('../img/bg_confirm_check_gray_used_right.png');
 }
 .section_confirm.used .confirm_item_top .item_top_inside_left .item_top_inside_right .confirm_title {
-    background-image: url('../img/bg/bg_confirm_check_gray_used_center.png');
+    background-image: url('../img/bg_confirm_check_gray_used_center.png');
     background-size: 4px 53px;
     height: 38px;
 }
@@ -10931,7 +10931,7 @@ select {
 .section_my .wrap_mylist .list_cards .card .card_header .left {
     overflow: hidden;
     display: table-cell;
-    background-image: url('/img/bg/bg_card_hl.png');
+    background-image: url('../img/bg_card_hl.png');
     background-size: 12px 54px;
     background-repeat: no-repeat;
     width: 12px;
@@ -10942,7 +10942,7 @@ select {
     position: relative;
     overflow: hidden;
     display: table-cell;
-    background-image: url('/img/bg/bg_card_hm.png');
+    background-image: url('../img/bg_card_hm.png');
     background-size: 4px 54px;
     background-repeat: repeat-x;
     width: 100%;
@@ -10966,7 +10966,7 @@ select {
 .section_my .wrap_mylist .list_cards .card .card_header .right {
     overflow: hidden;
     display: table-cell;
-    background-image: url('/img/bg/bg_card_hr.png');
+    background-image: url('../img/bg_card_hr.png');
     background-size: 12px 54px;
     background-repeat: no-repeat;
     width: 12px;
@@ -10979,7 +10979,7 @@ select {
 .section_my .wrap_mylist .list_cards .card .card_body .left {
     overflow: hidden;
     display: table-cell;
-    background-image: url('/img/bg/bg_card_bl.png');
+    background-image: url('../img/bg_card_bl.png');
     background-size: 12px 2px;
     background-repeat: repeat-y;
     width: 12px;
@@ -11059,7 +11059,7 @@ select {
 .section_my .wrap_mylist .list_cards .card .card_body .right {
     overflow: hidden;
     display: table-cell;
-    background-image: url('/img/bg/bg_card_br.png');
+    background-image: url('../img/bg_card_br.png');
     background-size: 12px 2px;
     background-repeat: repeat-y;
     width: 12px;
@@ -11072,7 +11072,7 @@ select {
 .section_my .wrap_mylist .list_cards .card .card_footer .left {
     overflow: hidden;
     display: table-cell;
-    background-image: url('/img/bg/bg_card_fl.png');
+    background-image: url('../img/bg_card_fl.png');
     background-size: 12px 2px;
     background-repeat: no-repeat;
     width: 12px;
@@ -11082,7 +11082,7 @@ select {
 .section_my .wrap_mylist .list_cards .card .card_footer .middle {
     overflow: hidden;
     display: table-cell;
-    background-image: url('/img/bg/bg_card_fm.png');
+    background-image: url('../img/bg_card_fm.png');
     background-size: 2px 2px;
     background-repeat: repeat-x;
     width: 100%;
@@ -11092,7 +11092,7 @@ select {
 .section_my .wrap_mylist .list_cards .card .card_footer .right {
     overflow: hidden;
     display: table-cell;
-    background-image: url('/img/bg/bg_card_fr.png');
+    background-image: url('../img/bg_card_fr.png');
     background-size: 12px 2px;
     background-repeat: no-repeat;
     width: 12px;
@@ -11103,25 +11103,25 @@ select {
     display: table-row;
 }
 .section_my .wrap_mylist .list_cards .card.confirmed .card_header .left {
-    background-image: url('/img/bg/bg_card2_hl.png');
+    background-image: url('../img/bg_card2_hl.png');
 }
 .section_my .wrap_mylist .list_cards .card.confirmed .card_header .middle {
-    background-image: url('/img/bg/bg_card2_hm.png');
+    background-image: url('../img/bg_card2_hm.gif');
 }
 .section_my .wrap_mylist .list_cards .card.confirmed .card_header .right {
-    background-image: url('/img/bg/bg_card2_hr.png');
+    background-image: url('../img/bg_card2_hr.png');
 }
 .section_my .wrap_mylist .list_cards .card.used .card_header {
     display: table-row;
 }
 .section_my .wrap_mylist .list_cards .card.used .card_header .left {
-    background-image: url('/img/bg/bg_card3_hl.png');
+    background-image: url('../img/bg_card3_hl.png');
 }
 .section_my .wrap_mylist .list_cards .card.used .card_header .middle {
-    background-image: url('/img/bg/bg_card3_hm.png');
+    background-image: url('../img/bg_card3_hm.gif');
 }
 .section_my .wrap_mylist .list_cards .card.used .card_header .right {
-    background-image: url('/img/bg/bg_card3_hr.png');
+    background-image: url('../img/bg_card3_hr.png');
 }
 .section_my .btn_more {
     margin: 0 5px;

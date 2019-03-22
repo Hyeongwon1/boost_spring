@@ -142,6 +142,36 @@ public class MainController {
 		map.put("DetailPrice", DetailPrice);
 		return map;
 	}
+	
+	@RequestMapping("/bookinglogin")
+	public String bookinglogin(HttpSession session, ModelMap modelMap, HashMap<String, Object> param,HttpServletRequest request,ProductDTO prddto) throws Exception{
+		
+		
+//		System.out.println();
+//	 	int id= Integer.parseInt(request.getParameter("id"));
+//	 	prddto.setCategory_id(id); 
+//	 	param.put("id", id);
+//	 	HashMap<String, Object> detailEntry = mainService.detailEntry(param);
+//		
+//	 	modelMap.addAttribute("reserveDetail",detailEntry);
+		
+		return "main/bookinglogin";
+	}
+	
+	@RequestMapping("/myreservation")
+	public String myreservation(HttpSession session, ModelMap modelMap, HashMap<String, Object> param,HttpServletRequest request,ProductDTO prddto) throws Exception{
+		
+		
+//		System.out.println();
+//	 	int id= Integer.parseInt(request.getParameter("id"));
+//	 	prddto.setCategory_id(id); 
+//	 	param.put("id", id);
+//	 	HashMap<String, Object> detailEntry = mainService.detailEntry(param);
+//		
+//	 	modelMap.addAttribute("reserveDetail",detailEntry);
+		
+		return "main/myreservation";
+	}
 //	@RequestMapping(value = "/board/boardListf.do", method = RequestMethod.GET)
 //	public String boardListfirst(Locale locale, Model model) throws Exception{
 //		

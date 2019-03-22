@@ -279,7 +279,7 @@
                     <a href="/main/home" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
                     <a href="/main/home" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
-                <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
+                <a href="/main/bookinglogin" class="btn_my"> <span title="예약확인">예약확인</span> </a>
             </header>
         </div>
         <div class="ct main">
@@ -290,7 +290,7 @@
                             <a href="/main/home" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
                             <a hre="/main/home" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                         </h1>
-                        <a href="" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                        <a href="/main/bookinglogin" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                     </header>
                     <div class="pagination">
                         <div class="bg_pagination"></div>
