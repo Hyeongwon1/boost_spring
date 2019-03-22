@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -82,6 +83,10 @@ public class MainController {
 	@ResponseBody
 	public HashMap<String, Object> detailEntry(HttpSession session, @RequestBody HashMap<String, Object> param, Model model, HttpServletRequest request) throws Exception{
 		
+		
+		request.getParameter("id");
+		System.out.println("request.getParameter");
+		System.out.println(request.getParameter("id"));
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<HashMap<String, Object>> ComentList = mainService.DetailComentList(param);
 		int ComentListCount = mainService.DetailComentListCount(param);
@@ -109,6 +114,32 @@ public class MainController {
 		List<HashMap<String, Object>> ComentList = mainService.DetailComentList(param);
 		
 		map.put("ComentList", ComentList);
+		return map;
+	}
+	
+	@RequestMapping("/reserve")
+	public String reserve(HttpSession session, ModelMap modelMap, HashMap<String, Object> param,HttpServletRequest request,ProductDTO prddto) throws Exception{
+		
+		
+		System.out.println();
+	 	int id= Integer.parseInt(request.getParameter("id"));
+	 	prddto.setCategory_id(id); 
+	 	param.put("id", id);
+	 	HashMap<String, Object> detailEntry = mainService.detailEntry(param);
+		
+	 	modelMap.addAttribute("reserveDetail",detailEntry);
+		
+		return "main/reserve";
+	}
+	
+	@RequestMapping("/detailprice")
+	@ResponseBody
+	public HashMap<String, Object> detailreserve(HttpSession session, @RequestBody HashMap<String, Object> param, Model model, HttpServletRequest request) throws Exception{
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<HashMap<String, Object>> DetailPrice = mainService.DetailPrice(param);
+		
+		map.put("DetailPrice", DetailPrice);
 		return map;
 	}
 //	@RequestMapping(value = "/board/boardListf.do", method = RequestMethod.GET)

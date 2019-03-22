@@ -18,11 +18,12 @@
 	<script>
 	var moreCount		= 0; //더보기
 	var count = 0;
+	var dno  = 0;
 	document.addEventListener("DOMContentLoaded", function() {
 			var a = window.location.href
 			var arr = []
 				arr = a.split("=")
-			var dno = arr[1]
+				dno = arr[1]
 			Paramdata = {
 			id 		: dno,
 			flag	: "0",
@@ -48,11 +49,17 @@
 	  	//etc image 다음버튼 
 		var close = document.querySelector(".nxt_inn");
 			close.addEventListener("click", function (evt) {
-			console.log(evt.target)
-			console.log(evt.target.id)
-// 			openClose(evt.target.id)
 			imageChange()
 		});	
+			
+// 		//etc image 다음버튼 
+// 		var close = document.querySelector(".nxt_inn");
+// 			close.addEventListener("click", function (evt) {
+// 			console.log(evt.target)
+// 			console.log(evt.target.id)
+// 	//	 	openClose(evt.target.id)
+// 			imageChange()
+// 		});	
 	  
 	  	//더보기 클릭
 	   document.querySelector(".btn_review_more").onclick = function()
@@ -122,7 +129,6 @@
 			btn_review_more.style.display="block";
 		}	   
     	
-    	
     		if (moreCount  == 0) {
     			list_short_review.innerHTML = comentresult
     		//더보기 시 추가
@@ -145,6 +151,8 @@
     		console.log(etcImage)
     	if (etcImage) {
     		var etcIresult = bindTemplate(etcImage);
+    		detail.innerHTML += etcIresult
+    		detail.innerHTML += detailresult
     		detail.innerHTML += etcIresult
 		}	
     	
@@ -211,7 +219,6 @@
 	
    //접기 펼치기 
     function openClose(num){
-        console.log(num)
        	var bk_moreList = document.getElementsByClassName("bk_more");
        	console.log(bk_moreList.length)
        	for (var i = 0; i <bk_moreList.length; i++) {
@@ -229,28 +236,24 @@
        		store_details.className = 'store_details'
 		}else if (num == 1) {
 			store_details.className = 'store_details close3'
-		}
-       	
+		}     	
    }
    
 	function imageChange(){
-    	
-    	var promoimg = document.querySelector(".visual_img")
-    	var promoitem = document.querySelector(".visual_img").children
+    	var promoimg 	= document.querySelector(".visual_img")
+    	var promoitem 	= document.querySelector(".visual_img").children
     		promoimg.style.right = "0px"
     		count = count + 18;
     		promoimg.style.right = parseInt(promoimg.style.right) + count +"px";
     		console.log(promoitem)
     		console.log(count)
     		//픽셀이동 414가 딱 한칸 414 도달하면 지나간 값을 appendChild를 해줬을경우 제일 마지막에붙게된다.
-    		if (count >=  414) {
-//     			console.log(promoimg) 
-//     			console.log(promoimg.lastElementChild) 
+    		if (count >= 414) {
 				//픽셀 이동 카운트 초기화 아래서 어팬드 차일드해서  li 값을 뒤에 붙여줄거기 때문에 결론은 414만 움직이면 li순서가 appendChild로인해 첫번째것은 제일 마지막으로 보내지고 한칸씩 당겨지기 떄문에
 				count= 0;
-// 				promoimg.style.right = "-414px"
+				promoimg.style.right = "0px"
+    			promoimg.appendChild(promoitem[0]);
 // 				setTimeout(aaa,3000)
-//     			promoimg.appendChild(promoitem[0])
 				function aaa(){
 					//위에 선언된 ul의 칠드런 값중 제일 첫번째(이미 지나간 li)를 어팬드 해주면 마지막에 붙는다. 그래서 지나간 li들은 마지막에 붙게된다.
 // 			    	requestAnimationFrame(function(){imageChange()});
@@ -261,6 +264,11 @@
 			}
     } 
     
+	function goreserve() {
+		console.log("aaa")
+		location.href='/main/reserve?id='+dno
+	}
+	
 	</script>
 </head>
 <body>
@@ -280,7 +288,7 @@
                     <header>
                         <h1 class="logo">
                             <a href="/main/home" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                            <a href="/main/home" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                            <a hre="/main/home" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                         </h1>
                         <a href="" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                     </header>
@@ -355,7 +363,11 @@
                     </div>
                 </div>
                 
-                <div class="section_btn"> <button type="button" class="bk_btn"> <i class="fn fn-nbooking-calender2"></i> <span>예매하기</span> </button> </div>
+                <div class="section_btn"> 
+                	<button type="button" class="bk_btn" onclick="goreserve()" >
+                	 <i class="fn fn-nbooking-calender2"></i> <span>예매하기</span> 
+                	 </button> 
+                </div>
                 <div class="section_review_list">
                     <div class="review_box">
                         <h3 class="title_h3">예매자 한줄평</h3>

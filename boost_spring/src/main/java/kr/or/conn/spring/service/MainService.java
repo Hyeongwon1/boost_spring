@@ -71,6 +71,12 @@ public class MainService {
 		return MainDao.DetailEtcImage(param);
 	}
 
+
+	public List<HashMap<String, Object>> DetailPrice(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		return MainDao.DetailPrice(param);
+	}
+
 //	public int getTotalRows(HashMap<String, Object> param) {
 //		
 //		return boardDao.getTotalRows(param);

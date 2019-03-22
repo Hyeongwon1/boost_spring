@@ -91,6 +91,11 @@ public class MainDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("main.DetailEtcImage",param);
 	}
+
+	public List<HashMap<String, Object>> DetailPrice(HashMap<String, Object> param) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("main.DetailPrice",param);
+	}
 	
 //
 //	public int Signchk(String userId, String userPw) throws ClassNotFoundException {

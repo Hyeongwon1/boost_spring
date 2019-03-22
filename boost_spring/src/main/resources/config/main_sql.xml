@@ -280,6 +280,36 @@
 			limit 1
 	</select>
 
+
+	<select id="DetailPrice" resultType="java.util.HashMap" >
+		select 
+			pd.id
+			,pd.description
+			,pd.content
+			,pd.`event`	
+			,(case pp.price_type_name when 'A' then '성인' 
+												when 'Y' then '청소년'
+												when 'B' then '유아'
+												when 'S' then '셋트'
+												when 'D' then '장애인'
+												when 'C' then '지역주민'
+												when 'E' then  '얼리버드'
+												when 'V' then	'VIP'
+												when 'R' then	'R석'
+												when 'B' then	'B석'
+												when 'S' then 	'S석'
+												when 'D' then	'평일' end) as price_type_name
+			,pp.price
+			,pp.discount_rate
+			from product pd
+			
+			left
+			join product_price pp
+			on pd.id = pp.product_id
+			
+			where pd.id =#{id} 
+	</select>
+	
 	 <select id="boardList" resultType="java.util.HashMap" >
 
 
